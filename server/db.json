@@ -1,3 +1,14 @@
 {
-    "todos": []
+    "todos": [
+        {
+            "id": "0",
+            "name": "Task 1",
+            "is_checked": "true"
+        },
+        {
+            "id": "1",
+            "name": "Task 2",
+            "is_checked": "false"
+        }
+    ]
 }
