@@ -14,7 +14,7 @@ function App() {
 
   const fetchTasks = async () => {
     try {
-      const { data } = await axios.get('http://localhost:3000/todos?_sort=-created_at');
+      const { data } = await axios.get('http://localhost:3000/todos?_sort=-is_checked,-created_at');
       setTasks(data);
       setIsDataUpdated(true);
     } catch (error) {
