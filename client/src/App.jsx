@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import './App.css'
 import TaskCard from './components/TaskCard';
+import DeleteModal from './components/DeleteModal';
 
 function App() {
   const [tasks, setTasks] = useState();
@@ -11,6 +12,7 @@ function App() {
     "created_at": new Date()
   });
   const [isDataUpdated, setIsDataUpdated] = useState(true);
+  const [taskData, setTaskData] = useState(null);
 
   const fetchTasks = async () => {
     try {
@@ -34,11 +36,11 @@ function App() {
 
   useEffect(() => {
     fetchTasks()
-  }, [])
+  }, []);
 
   useEffect(() => {
     fetchTasks()
-  }, [isDataUpdated])
+  }, [isDataUpdated]);
 
   return (
     <>
@@ -55,13 +57,15 @@ function App() {
           {/* task list */}
           {
             tasks?.map((task) => {
-              return <TaskCard key={task.id} data={task} setIsDataUpdated={setIsDataUpdated} />
+              return <TaskCard key={task.id} data={task} setIsDataUpdated={setIsDataUpdated} setTaskData={setTaskData} />
             })
           }
           {/* end task list */}
 
         </div>
       </div>
+
+      <DeleteModal data={taskData} setIsDataUpdated={setIsDataUpdated} />
     </>
   )
 }
