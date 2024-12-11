@@ -4,8 +4,17 @@ const TaskCard = (props) => {
     const deleteTask = async (id) => {
         try {
             await axios.delete("http://localhost:3000/todos/" + id);
+            props.setIsDataUpdated(false);
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    const markChecked = async () => {
+        try {
+            await axios.get("http://localhost:3000/todos/")
+        } catch (error) {
+            console.log(error);
         }
     }
 

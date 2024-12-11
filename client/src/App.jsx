@@ -10,13 +10,17 @@ function App() {
     "is_checked": false,
     "created_at": new Date()
   });
+  const [isDataUpdated, setIsDataUpdated] = useState(true);
 
   const fetchTasks = async () => {
     try {
       const { data } = await axios.get('http://localhost:3000/todos?_sort=-created_at');
       setTasks(data);
+      setIsDataUpdated(true);
     } catch (error) {
       console.log(error);
+    } finally {
+
     }
   }
 
@@ -31,6 +35,10 @@ function App() {
   useEffect(() => {
     fetchTasks()
   }, [])
+
+  useEffect(() => {
+    fetchTasks()
+  }, [isDataUpdated])
 
   return (
     <>
@@ -47,7 +55,7 @@ function App() {
           {/* task list */}
           {
             tasks?.map((task) => {
-              return <TaskCard key={task.id} data={task} />
+              return <TaskCard key={task.id} data={task} setIsDataUpdated={setIsDataUpdated} />
             })
           }
           {/* end task list */}
