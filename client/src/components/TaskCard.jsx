@@ -12,8 +12,10 @@ const TaskCard = (props) => {
 
     const markChecked = async () => {
         try {
-            await axios.put("http://localhost:3000/todos/" + props.data?.id, { ...inputEdit, is_checked: !props.data?.is_checked });
+            await axios.put("http://localhost:3000/todos/" + props.data?.id, { ...props.data, is_checked: !props.data?.is_checked });
             props.setIsDataUpdated(false);
+            console.log("Mark Checked");
+            console.log(props.data);
         } catch (error) {
             console.log(error);
         }
@@ -23,10 +25,16 @@ const TaskCard = (props) => {
         try {
             await axios.put("http://localhost:3000/todos/" + props.data?.id, inputEdit);
             props.setIsDataUpdated(false);
+            console.log("Edit task");
+            console.log(props.data);
         } catch (error) {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        props.setIsDataUpdated(false);
+    }, [inputEdit]);
 
     return (
         <div className='w-64 mt-2'>
@@ -34,9 +42,9 @@ const TaskCard = (props) => {
 
                 <form className='flex'>
                     <input onChange={() => markChecked()} className='me-2 border-2 border-black' type='checkbox' id={"checkbox_" + props.data?.id} name={"checkbox_" + props.data?.id} checked={props.data.is_checked && 'checked'} />
-                    <label className={isEdit ? "hidden" : ""} htmlFor={"checkbox_" + props.data?.id}>{props.data?.name}</label>
+                    <label className={isEdit ? "hidden" : props.data?.is_checked ? "line-through" : ""} htmlFor={"checkbox_" + props.data?.id}>{props.data?.name}</label>
                     <div className={isEdit ? "flex flex-nowrap" : "hidden"}>
-                        <input onChange={(e) => setInputEdit({ ...inputEdit, name: e.target.value })} className="w-full border-b border-black/60 focus:outline-none" value={inputEdit.name} />
+                        <input onChange={(e) => setInputEdit({ ...props.data, name: e.target.value })} className="w-full border-b border-black/60 focus:outline-none" value={inputEdit.name} />
                         <button onClick={() => editTask()} className="bg-black text-white text-xs px-1 py-0 rounded">OK</button>
                     </div>
                 </form>
