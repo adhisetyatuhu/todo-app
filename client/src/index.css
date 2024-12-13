@@ -5,3 +5,9 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+body {
+  background-color: #f9fcfb;
+  min-height: 100vh;
+  padding: 0;
+}
