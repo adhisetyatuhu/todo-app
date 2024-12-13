@@ -40,8 +40,8 @@ const TaskCard = (props) => {
         <div className='w-64 mt-2'>
             <div className='py-2 px-4 border-2 border-black flex gap-2 justify-between'>
 
-                <form className='flex'>
-                    <input onChange={() => markChecked()} className='me-2 border-2 border-black' type='checkbox' id={"checkbox_" + props.data?.id} name={"checkbox_" + props.data?.id} checked={props.data.is_checked && 'checked'} />
+                <form className='flex items-center'>
+                    <input onChange={() => markChecked()} className={'me-2 border border-black/20 bg-black/10 checkbox checkbox-xs ' + (props.data.is_checked && 'checkbox-success [--chkfg:white]')} type='checkbox' id={"checkbox_" + props.data?.id} name={"checkbox_" + props.data?.id} checked={props.data.is_checked && 'checked'} />
                     <label className={isEdit ? "hidden" : props.data?.is_checked ? "line-through" : ""} htmlFor={"checkbox_" + props.data?.id}>{props.data?.name}</label>
                     <div className={isEdit ? "flex flex-nowrap" : "hidden"}>
                         <input onChange={(e) => setInputEdit({ ...props.data, name: e.target.value })} className="w-full border-b border-black/60 focus:outline-none" value={inputEdit.name} />
