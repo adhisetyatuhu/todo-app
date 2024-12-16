@@ -52,7 +52,7 @@ function App() {
 
   return (
     <>
-      <div className='py-4 flex gap-2 items-center'>
+      <div className='py-6 flex gap-2 items-center justify-center'>
         <span>
           <svg fill='rgb(30 64 175)' height={20} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
             {/* <!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
@@ -62,37 +62,35 @@ function App() {
         <span className='text-2xl font-bold text-blue-800'>Todo App</span>
       </div>
 
-      <div className='container'>
-        <div className='w-full flex flex-col gap-2 items-center'>
+      <div className='w-full flex flex-col gap-2 items-center'>
 
-          <div className='p-8 bg-white shadow-lg'>
-            {/* counter */}
-            <div className='py-4 px-4 flex justify-between items-center rounded-lg bg-gradient-to-r from-purple-700/70 to-blue-500/60'>
-              <div>
-                <h1 className='text-xl text-white/90 font-bold'>Task Done</h1>
-                <h3 className='text-white/75'>Keep it up</h3>
-              </div>
-              <div className='w-16 h-16 border-2 border-white rounded-full flex items-center justify-center text-white font-bold'>
-                {tasksDone?.length} / {tasks?.length}
-              </div>
+        <div className='p-8 bg-white shadow-lg'>
+          {/* counter */}
+          <div className='py-4 px-4 flex justify-between items-center rounded-lg bg-gradient-to-r from-purple-700/70 to-blue-500/60'>
+            <div>
+              <h1 className='text-xl text-white/90 font-bold'>Task Done</h1>
+              <h3 className='text-white/75'>Keep it up</h3>
             </div>
-            {/* end counter */}
-
-            {/* form input task */}
-            <form className='flex my-6' onSubmit={(e) => addTask(e)}>
-              <input id='add-input' autoFocus onChange={(e) => setInputTask({ ...inputTask, name: e.target.value })} placeholder='Task to do...' className='py-2 px-4 w-full border border-r-0 border-blue-600/50 rounded-l-lg focus:outline-none focus:bg-slate-100 peer' />
-              <button className='py-2 px-4 rounded-r-lg bg-blue-600/80 text-white hover:bg-blue-800/90 hover:text-white active:bg-blue-600/80 peer-focus:bg-blue-600/70 peer-focus:hover:bg-black/90 peer-focus:text-white'>+</button>
-            </form>
-            {/* end form input task */}
-
-            {/* task list */}
-            {
-              tasks?.map((task) => {
-                return <TaskCard key={task.id} data={task} setIsDataUpdated={setIsDataUpdated} setTaskData={setTaskData} />
-              })
-            }
-            {/* end task list */}
+            <div className='w-16 h-16 border-2 border-white rounded-full flex items-center justify-center text-white font-bold'>
+              {tasksDone?.length} / {tasks?.length}
+            </div>
           </div>
+          {/* end counter */}
+
+          {/* form input task */}
+          <form className='flex my-6' onSubmit={(e) => addTask(e)}>
+            <input id='add-input' autoFocus onChange={(e) => setInputTask({ ...inputTask, name: e.target.value })} placeholder='Task to do...' className='py-2 px-4 w-full border border-r-0 border-blue-600/50 rounded-l-lg focus:outline-none focus:bg-slate-100 peer' />
+            <button className='py-2 px-4 rounded-r-lg bg-blue-600/80 text-white hover:bg-blue-800/90 hover:text-white active:bg-blue-600/80 peer-focus:bg-blue-600/70 peer-focus:hover:bg-black/90 peer-focus:text-white'>+</button>
+          </form>
+          {/* end form input task */}
+
+          {/* task list */}
+          {
+            tasks?.map((task) => {
+              return <TaskCard key={task.id} data={task} setIsDataUpdated={setIsDataUpdated} setTaskData={setTaskData} />
+            })
+          }
+          {/* end task list */}
         </div>
       </div>
 
