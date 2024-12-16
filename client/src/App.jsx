@@ -31,9 +31,12 @@ function App() {
     }
   }
 
-  const addTask = async () => {
+  const addTask = async (e) => {
+    e.preventDefault();
     try {
       await axios.post("http://localhost:3000/todos", inputTask);
+      document.getElementById('add-input').value = '';
+      setIsDataUpdated(false);
     } catch (error) {
       console.log(error);
     }
@@ -76,8 +79,8 @@ function App() {
             {/* end counter */}
 
             {/* form input task */}
-            <form className='flex my-6' onSubmit={() => addTask()}>
-              <input autoFocus onChange={(e) => setInputTask({ ...inputTask, name: e.target.value })} placeholder='Task to do...' className='py-2 px-4 w-full border border-r-0 border-blue-600/50 rounded-l-lg focus:outline-none focus:bg-slate-100 peer' />
+            <form className='flex my-6' onSubmit={(e) => addTask(e)}>
+              <input id='add-input' autoFocus onChange={(e) => setInputTask({ ...inputTask, name: e.target.value })} placeholder='Task to do...' className='py-2 px-4 w-full border border-r-0 border-blue-600/50 rounded-l-lg focus:outline-none focus:bg-slate-100 peer' />
               <button className='py-2 px-4 rounded-r-lg bg-blue-600/80 text-white hover:bg-blue-800/90 hover:text-white active:bg-blue-600/80 peer-focus:bg-blue-600/70 peer-focus:hover:bg-black/90 peer-focus:text-white'>+</button>
             </form>
             {/* end form input task */}
