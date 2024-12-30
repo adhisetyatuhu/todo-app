@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import './App.css'
 import TaskCard from './components/TaskCard';
+import { LoadingTaskCard } from './components/TaskCard';
 import DeleteModal from './components/DeleteModal';
+import server from '../utils/axios';
+
 
 function App() {
   const [tasks, setTasks] = useState();
@@ -14,10 +16,11 @@ function App() {
   const [isDataUpdated, setIsDataUpdated] = useState(true);
   const [taskData, setTaskData] = useState(null);
   const [tasksDone, setTasksDone] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchTasks = async () => {
     try {
-      const { data } = await axios.get('http://localhost:3000/todos?_sort=-is_checked,-created_at');
+      const { data } = await server.get('/todos?_sort=-is_checked,-created_at');
       setTasks(data);
 
       const doneList = data?.filter((task) => { return task.is_checked });
@@ -26,24 +29,26 @@ function App() {
       setIsDataUpdated(true);
     } catch (error) {
       console.log(error);
-    } finally {
-
     }
   }
 
   const addTask = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      await axios.post("http://localhost:3000/todos", inputTask);
+      await server.post("/todos", inputTask);
       document.getElementById('add-input').value = '';
       setIsDataUpdated(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   useEffect(() => {
     fetchTasks()
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -86,9 +91,10 @@ function App() {
 
           {/* task list */}
           {
-            tasks?.map((task) => {
-              return <TaskCard key={task.id} data={task} setIsDataUpdated={setIsDataUpdated} setTaskData={setTaskData} />
-            })
+            isLoading ? <LoadingTaskCard /> :
+              tasks?.map((task) => {
+                return <TaskCard key={task.id} data={task} setIsDataUpdated={setIsDataUpdated} setTaskData={setTaskData} />
+              })
           }
           {/* end task list */}
         </div>

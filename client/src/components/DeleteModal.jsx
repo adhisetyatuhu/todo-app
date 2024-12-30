@@ -1,9 +1,10 @@
-import axios from "axios";
+import server from "../../utils/axios";
+
 
 const DeleteModal = (props) => {
     const deleteTask = async () => {
         try {
-            await axios.delete("http://localhost:3000/todos/" + props.data?.id);
+            await server.delete("/todos/" + props.data?.id);
             props.setIsDataUpdated(false);
             document.getElementById('delete_modal').close();
         } catch (error) {

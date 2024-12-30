@@ -1,5 +1,16 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import server from "../../utils/axios";
+
+
+export function LoadingTaskCard() {
+    return (
+        <>
+            <div className='mt-2'>
+                <div className='py-2 px-4 border bg-gray-300 rounded flex justify-between'></div>
+            </div>
+        </>
+    )
+}
 
 const TaskCard = (props) => {
     const [isEdit, setIsEdit] = useState(false);
@@ -12,7 +23,7 @@ const TaskCard = (props) => {
 
     const markChecked = async () => {
         try {
-            await axios.put("http://localhost:3000/todos/" + props.data?.id, { ...props.data, is_checked: !props.data?.is_checked });
+            await server.put("/todos/" + props.data?.id, { ...props.data, is_checked: !props.data?.is_checked });
             props.setIsDataUpdated(false);
         } catch (error) {
             console.log(error);
@@ -22,10 +33,9 @@ const TaskCard = (props) => {
     const editTask = async (e) => {
         e.preventDefault();
         try {
-            await axios.put("http://localhost:3000/todos/" + props.data?.id, inputEdit);
+            await server.put("/todos/" + props.data?.id, inputEdit);
             props.setIsDataUpdated(false);
             setIsEdit(false);
-            console.log("edit");
         } catch (error) {
             console.log(error);
         }
@@ -77,7 +87,6 @@ const TaskCard = (props) => {
                 }
             </div>
         </div >
-
     );
 }
 
