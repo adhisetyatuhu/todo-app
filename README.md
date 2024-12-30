@@ -1,2 +1,21 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=17447662&assignment_repo_type=AssignmentRepo)
-# FERN-P1-S1GC02
+# TODO APP
+
+You can see [the demo here](https://app-todo-f6ab4.web.app/) or [https://app-todo-f6ab4.web.app](https://app-todo-f6ab4.web.app/).
+
+## Installation
+
+Server
+
+```
+cd server
+npm install
+npx json-server --watch db.json --port 3000
+```
+
+Client
+
+```
+cd client
+npm install
+npm run dev
+```
